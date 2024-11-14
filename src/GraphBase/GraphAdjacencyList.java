@@ -7,27 +7,24 @@ import java.util.*;
 
 // Confirm if Princeton method also uses bidirectional boolean
 
-// List the essential components of this Graph
-
-
+/*
+Grab multiple implementations of Graphs and then factorize them essentially
+List the essential components of this Graph
+Abstract into an interface
+Implement the algorithms of traversal and shortest path on the interface
+*/
 //Things I didn't know well enough:
 //  <T> implementation,
-//  splitting up where each section in OOP goes
-public class GraphAdjacencyMatrix<T> {
+//  splitting up where each section in OOP goes. See above plans
+public class GraphAdjacencyList<T> {
     private Map<T, List<T>> map = new HashMap<>();
 
+    //TODO: I believe bidirectional should be tracked by the edge, not the LinkedList of items
     public void addVertex(T s){
         map.put(s, new LinkedList<T>());
     }
 
     public void addEdge(T start, T end, boolean bidirectional){
-        //Didn't like source being used as keyword here so changed to start
-        // Source and Sink are reserved. Source is for nodes with nothing pointing to them.
-
-        //bidirectional is... interesting design
-
-
-        //TODO: once test cases get established, check if could factorize !map.contains key into addVertex function
         if(!map.containsKey(start)){
             addVertex(start);
         }
@@ -35,82 +32,39 @@ public class GraphAdjacencyMatrix<T> {
             addVertex(end);
         }
 
-        map.get(start).add(end); // huh, LinkedList get returned by reference
+        map.get(start).add(end); // LinkedList get returned by reference
+
         if(bidirectional){
             map.get(start).add(start);
         }
     }
 
 
-    public void neighbours(T s) {
+    public void neighbors(T s) {
         if(!map.containsKey(s))
             return;
-        System.out.println("The neighbours of "+s+" are");
-//        for(T w:map.get(s))
-//         System.out.print(w+",");
+
+        // TODO: this should return list
+
+        //TODO: this is NOT neighbors. It does not return in-degrees that aren't bidirectional
+
+        System.out.println("The neighbors of "+s+" are");
         StringBuilder delimitedList = new StringBuilder();
 
         for ( T w : map.get(s)){
             delimitedList.append(w).append(", ");
         }
-        if (delimitedList.length() > 0){
+        if (!delimitedList.isEmpty()){
             delimitedList.setLength(delimitedList.length() - 2); // removing the last comma and space
         }
-    }
-    public int getVertexCount(){
-        return map.keySet().size();
-    }
 
-
-
-    public int getEdgesCount(boolean bidirection){
-        int count = 0;
-//        for (int i = 0; i < map.keySet().size(); i++){
-//            count += map.get()
-//        }
-        for (T v :  map.keySet()){
-            count += map.get(v).size();
-        }
-        if (bidirection){
-            if ( count % 2 > 0){
-                //TODO: wipe this before posting? Add to tests?
-                System.out.println("Count is not even despite being assumed even: " + count);
-            }
-            count = count / 2; //uhh, some edges are bidirection and others are not
-            // man this is iffy
-            // Convert to (int) to hide symptoms
-            // What if there are mixed bidirectional and not bidirectional edges...
-
-        }
-
-        return count;
+        System.out.println(delimitedList.toString());
     }
 
 
-    public boolean hasVertex ( T s ){
-        if ( map.containsKey(s) ){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+    // There should be other visualizations too
 
-
-
-    public boolean hasEdge(T s, T t) {
-        if (map.get(s).contains(t)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-
-
-
-    // Prints the adjancency list of each vertex.
+    // Prints the adjacency list of each vertex.
     @Override
     public String toString()
     {
@@ -126,6 +80,48 @@ public class GraphAdjacencyMatrix<T> {
 
         return (builder.toString());
     }
+
+
+    public int getVertexCount(){
+        return map.keySet().size();
+    }
+    public int getEdgesCount(boolean bidirection){
+        int count = 0;
+        for (T v :  map.keySet()){
+            count += map.get(v).size();
+        }
+        if (bidirection){
+            if ( count % 2 > 0){
+                //TODO: wipe this before posting? Add to tests? Update: if doing bidirectional edge update, does not need this
+                System.out.println("Count is not even despite being assumed even: " + count);
+            }
+            count = count / 2; //uhh, some edges are bidirection and others are not
+            // man this is iffy
+            // Convert to (int) to hide symptoms
+            // What if there are mixed bidirectional and not bidirectional edges...
+        }
+        return count;
+    }
+
+    public boolean hasVertex ( T s ){
+        if ( map.containsKey(s) ){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean hasEdge(T s, T t) {
+        if (map.get(s).contains(t)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
 
     public void printVertexCount(){
         System.out.println("The graph has " + getVertexCount() + " vertices.");

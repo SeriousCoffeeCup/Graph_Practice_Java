@@ -1,5 +1,5 @@
 package Tests;
-import src.GraphBase.GraphAdjacencyMatrix; //
+import src.GraphBase.GraphAdjacencyList; //
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -8,12 +8,12 @@ import static com.google.common.truth.Truth.assertWithMessage;
 //assertWithMessage( " Message " ) . that ( f(x) ) . isEqualTo ( expected value )
 // Doesn't need to import target class?
 
-public class GraphAdjacencyMatrixTest {
+public class GraphAdjacencyListTest {
     //main provided test
     @Test
     public void testMatrixBasicFunctionality(){
         // Object of graph is created.
-        GraphAdjacencyMatrix<Integer> g = new GraphAdjacencyMatrix<Integer>();
+        GraphAdjacencyList<Integer> g = new GraphAdjacencyList<Integer>();
 
         // edges are added.
         // Since the graph is bidirectional,
@@ -40,6 +40,6 @@ public class GraphAdjacencyMatrixTest {
 
         // Tells whether vertex is present or not
         g.printHasVertex(5);
-        g.neighbours(1);
+        g.neighbors(1);
     }
 }
