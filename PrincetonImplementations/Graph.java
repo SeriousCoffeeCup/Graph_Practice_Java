@@ -38,6 +38,8 @@ import java.util.NoSuchElementException;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.Stack;
+
+import static PrincetonImplementations.dataFiles.*;
 /**
  *  The {@code Graph} class represents an undirected graph of vertices
  *  named 0 through <em>V</em> – 1.
@@ -109,10 +111,13 @@ public class Graph {
         try {
             this.V = in.readInt();
             if (V < 0) throw new IllegalArgumentException("number of vertices in a Graph must be non-negative");
+
             adj = (Bag<Integer>[]) new Bag[V];
+
             for (int v = 0; v < V; v++) {
                 adj[v] = new Bag<Integer>();
             }
+
             int E = in.readInt();
             if (E < 0) throw new IllegalArgumentException("number of edges in a Graph must be non-negative");
             for (int i = 0; i < E; i++) {
@@ -142,6 +147,7 @@ public class Graph {
 
         // update adjacency lists
         adj = (Bag<Integer>[]) new Bag[V];
+
         for (int v = 0; v < V; v++) {
             adj[v] = new Bag<Integer>();
         }
@@ -250,10 +256,12 @@ public class Graph {
      */
     public static void main(String[] args) {
 //        In in = new In(args[0]);
-        In in = new In("./tinyG.txt");
-//        Graph G = new Graph(in);
+        In in = new In(mediumGraph);
+
+
+        Graph G = new Graph(in);
 //        StdOut.println(G);
-//        System.out.println(G);
+        System.out.println(G);
     }
 
 }
