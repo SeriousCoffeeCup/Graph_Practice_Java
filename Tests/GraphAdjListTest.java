@@ -1,5 +1,5 @@
 package Tests;
-import src.GraphBase.GraphAdjacencyList; //
+import src.GraphBase.GraphAdjList; //
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -8,12 +8,12 @@ import static com.google.common.truth.Truth.assertWithMessage;
 //assertWithMessage( " Message " ) . that ( f(x) ) . isEqualTo ( expected value )
 // Doesn't need to import target class?
 
-public class GraphAdjacencyListTest {
+public class GraphAdjListTest {
     //main provided test
     @Test
     public void testMatrixBasicFunctionality(){
         // Object of graph is created.
-        GraphAdjacencyList<Integer> g = new GraphAdjacencyList<Integer>();
+        GraphAdjList<Integer> g = new GraphAdjList<Integer>();
 
         // edges are added.
         // Since the graph is bidirectional,

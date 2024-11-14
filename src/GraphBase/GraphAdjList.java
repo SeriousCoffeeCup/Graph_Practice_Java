@@ -2,7 +2,8 @@ package src.GraphBase;
 import java.util.*;
 
 // Figure out https://www.geeksforgeeks.org/implementing-generic-graph-in-java/ first then Princeton implementation
-// Factorize this API into GraphBase and allow for using GraphAdjacencyList instead
+    // Actually this G4G implementation has been rather stupid
+// Factorize this API into GraphBase and allow for using GraphAdjList instead
 // Implement algorithms and test case, or do test cases earlier
 
 // Confirm if Princeton method also uses bidirectional boolean
@@ -16,10 +17,11 @@ Implement the algorithms of traversal and shortest path on the interface
 //Things I didn't know well enough:
 //  <T> implementation,
 //  splitting up where each section in OOP goes. See above plans
-public class GraphAdjacencyList<T> {
+public class GraphAdjList<T> {
     private Map<T, List<T>> map = new HashMap<>();
 
     //TODO: I believe bidirectional should be tracked by the edge, not the LinkedList of items
+    //TODO: how to fast and easy track in-degrees?
     public void addVertex(T s){
         map.put(s, new LinkedList<T>());
     }
@@ -65,6 +67,8 @@ public class GraphAdjacencyList<T> {
     // There should be other visualizations too
 
     // Prints the adjacency list of each vertex.
+
+    //Not much more than just a printNeighbors - remove the override and the toString name in my opinion
     @Override
     public String toString()
     {
@@ -81,7 +85,7 @@ public class GraphAdjacencyList<T> {
         return (builder.toString());
     }
 
-
+    //4 minor derivative methods
     public int getVertexCount(){
         return map.keySet().size();
     }
@@ -122,7 +126,7 @@ public class GraphAdjacencyList<T> {
     }
 
 
-
+    //print methods that reaaally don't need to exist
     public void printVertexCount(){
         System.out.println("The graph has " + getVertexCount() + " vertices.");
     }
